@@ -1,3 +1,9 @@
+/* $Id$ */
+let n = 0;
+export function generateTaskId() {
+  return ++n;
+}
+
 export function getFormattedDateTime(date) {
   const dateString = date.toLocaleDateString(undefined, {
     day: "numeric",
