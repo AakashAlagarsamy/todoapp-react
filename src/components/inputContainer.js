@@ -4,7 +4,6 @@ import taskListInstance from "./../collections/taskList";
 class InputContainer extends Component {
   constructor() {
     super();
-    this.state = {};
     this.taskInput = React.createRef();
     this.bindEventHandlers();
   }

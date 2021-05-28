@@ -9,17 +9,19 @@ class MainContainer extends Component {
   }
 
   componentDidMount() {
-    taskListInstance.subscribe("add", this.handleReRender);
-    taskListInstance.subscribe("remove", this.handleReRender);
-    taskListInstance.subscribe("update", this.handleReRender);
-    taskListInstance.subscribe("change", this.handleReRender);
+    taskListInstance.subscribe("add", [this.handleReRender]);
+    taskListInstance.subscribe("remove", [this.handleReRender]);
+    taskListInstance.subscribe("update", [this.handleReRender]);
+    taskListInstance.subscribe("change", [this.handleReRender]);
+    taskListInstance.subscribe("edit", [this.handleReRender]);
   }
 
   componentWillUnmount() {
-    taskListInstance.unsubscribe("add");
-    taskListInstance.unsubscribe("remove");
-    taskListInstance.unsubscribe("update");
-    taskListInstance.unsubscribe("change");
+    taskListInstance.unsubscribe("add", [this.handleReRender]);
+    taskListInstance.unsubscribe("remove", [this.handleReRender]);
+    taskListInstance.unsubscribe("update", [this.handleReRender]);
+    taskListInstance.unsubscribe("change", [this.handleReRender]);
+    taskListInstance.unsubscribe("edit", [this.handleReRender]);
   }
 
   handleReRender() {
@@ -40,11 +42,13 @@ class MainContainer extends Component {
             title={"Pending List"}
             titleId={"pendingListTitle"}
             taskListType={"pendingTasks"}
+            class={"pendingContainer"}
           />
           <TaskListContainer
             title={"Completed List"}
             titleId={"completedListTitle"}
             taskListType={"completedTasks"}
+            class={"completedContainer"}
           />
         </div>
       </div>

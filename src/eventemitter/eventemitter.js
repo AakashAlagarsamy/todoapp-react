@@ -4,18 +4,28 @@ class EventEmitter {
   }
 
   publish(eventName) {
-    return this.events[eventName]();
-  }
-
-  subscribe(eventName, callBack) {
-    if (!Object.keys(this.events).includes(eventName)) {
-      this.events[eventName] = callBack;
+    if (Object.keys(this.events).includes(eventName)) {
+      this.events[eventName].map((item) => item());
     }
   }
 
-  unsubscribe(eventName) {
+  subscribe(eventName, callBacks) {
+    if (!Object.keys(this.events).includes(eventName)) {
+      this.events[eventName] = callBacks;
+    } else {
+      this.events[eventName] = [...this.events[eventName], ...callBacks];
+    }
+  }
+
+  unsubscribe(eventName, callBacks) {
     if (Object.keys(this.events).includes(eventName)) {
-      delete this.events[eventName];
+      const newCallbacks = this.events[eventName].filter(
+        (item) => callBacks.indexOf(item) === -1
+      );
+      this.events[eventName] = [...newCallbacks];
+      if (!this.events[eventName].length) {
+        delete this.events[eventName];
+      }
     }
   }
 }

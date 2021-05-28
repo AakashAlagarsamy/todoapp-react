@@ -10,10 +10,11 @@ export default class Task {
     this.name = name;
     this.completed = false;
     this.timeString = getFormattedDateTime(new Date()) + " (Added) ";
+    this.isEdit = false;
   }
 
-  changeTaskStatus() {
-    this.completed = !this.completed;
+  changeTaskStatus(key) {
+    this[key] = !this[key];
   }
 
   updateTaskName(name) {

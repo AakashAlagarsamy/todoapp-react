@@ -22,13 +22,20 @@ class TaskList extends EventEmitter {
   updateTask(id, newTaskName) {
     const index = this.tasks.findIndex((element) => element.id === id);
     this.tasks[index].updateTaskName(newTaskName);
+    this.tasks[index].changeTaskStatus("isEdit");
     this.publish("update");
   }
 
   changeTask(id) {
     const index = this.tasks.findIndex((element) => element.id === id);
-    this.tasks[index].changeTaskStatus();
+    this.tasks[index].changeTaskStatus("completed");
     this.publish("change");
+  }
+
+  changeEditStatus(id) {
+    const index = this.tasks.findIndex((element) => element.id === id);
+    this.tasks[index].changeTaskStatus("isEdit");
+    this.publish("edit");
   }
 }
 

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import TaskContainer from "./taskContainer";
+import TaskUpdateContainer from "./taskUpdateContainer";
 import taskListInstance from "./../collections/taskList";
 import PropTypes from "prop-types";
 
@@ -25,12 +26,16 @@ class TaskListContainer extends Component {
         ? this.getPendingTasks()
         : this.getCompletedTasks();
     return (
-      <div className="split">
+      <div className={`${this.props.class} split`}>
         <label id={titleId}>{title}</label>
         <ul>
-          {taskList.map((item) => (
-            <TaskContainer key={item.id} task={item} />
-          ))}
+          {taskList.map((task) =>
+            task.isEdit ? (
+              <TaskUpdateContainer key={task.id} task={task} />
+            ) : (
+              <TaskContainer key={task.id} task={task} />
+            )
+          )}
         </ul>
       </div>
     );
@@ -43,4 +48,5 @@ TaskListContainer.propTypes = {
   title: PropTypes.string,
   titleId: PropTypes.string,
   taskListType: PropTypes.string,
+  class: PropTypes.string,
 };
